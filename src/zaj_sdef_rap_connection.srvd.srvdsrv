@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service Definition for CONNECTION (RAP)'
+define service ZAJ_SDEF_RAP_CONNECTION {
+  expose ZAJ_DDL_RAP_CONNECTION;
+  expose ZAJ_DDL_RAP_FLIGHT;
+}
