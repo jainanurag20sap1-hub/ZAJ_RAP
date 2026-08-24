@@ -2,8 +2,9 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Interface CDS entity for Travels'
 @Metadata.ignorePropagatedAnnotations: true
-define view entity ZAJ_RAP_I_TRAVEL
+define root view entity ZAJ_RAP_I_TRAVEL
   as select from zaj_rap_travel_m
+  composition [0..*] of ZAJ_RAP_I_BOOKING as _Booking 
   association [0..1] to /dmo/agency              as _Agency        on $projection.AgencyId = _Agency.agency_id
   association [0..1] to /dmo/customer            as _Customer      on $projection.CustomerId = _Customer.customer_id
   association [0..1] to I_Currency               as _Currency      on $projection.CurrencyCode = _Currency.Currency
@@ -30,6 +31,7 @@ define view entity ZAJ_RAP_I_TRAVEL
       _Agency,
       _Customer,
       _Currency,
-      _OverallStatus
+      _OverallStatus, 
+      _Booking
 
 }
