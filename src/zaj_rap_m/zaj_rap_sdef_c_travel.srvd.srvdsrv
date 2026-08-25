@@ -1,0 +1,6 @@
+@EndUserText.label: 'RAP Service def for Travel Proj view'
+define service ZAJ_RAP_SDEF_C_TRAVEL {
+  expose ZAJ_RAP_C_TRAVEL;
+  expose Zaj_RAP_C_Booking;
+  expose Zaj_RAP_C_BSUPPL_M;
+}

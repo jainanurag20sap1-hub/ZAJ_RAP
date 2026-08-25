@@ -1,0 +1,93 @@
+@Metadata.layer: #CORE
+@Search.searchable: true
+@UI.headerInfo: {
+    typeName: 'Travel',
+    typeNamePlural: 'Travels',
+    title: {
+        type: #STANDARD,
+        label: 'TravelLabel',
+        value: 'TravelId'
+    }
+}
+
+annotate view ZAJ_RAP_C_TRAVEL with
+{
+  @UI.facet: [{ id: 'Travel', position: 10, purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE }]
+
+  @UI:{   lineItem: [{ position: 10 }],
+          identification: [{ position: 10 }]
+      }
+  TravelId;
+  @UI:{   lineItem: [{ position: 20 }],
+          selectionField: [{  position: 20 }],
+          identification: [{ position: 20 }]
+      }
+  @Search.defaultSearchElement: true
+  @Consumption.valueHelpDefinition: [{ entity: {
+                                           name: '/DMO/I_AGENCY',
+                                           element: 'AgencyID'
+                                       } }]
+  AgencyId;
+  //    Agencyname;
+  @UI:{   lineItem: [{ position: 30 }],
+          selectionField: [{  position: 30 }],
+          identification: [{ position: 30 }]
+      }
+  @Search.defaultSearchElement: true
+  @Consumption.valueHelpDefinition: [{ entity: {
+                                         name: '/DMO/I_Customer',
+                                         element: '/DMO/I_Customer'
+                                     } }]
+  CustomerId;
+
+  @UI.identification: [{ position: 35 }]
+  CustomerName;
+
+  @UI.lineItem: [{ position: 40}]
+  @UI.identification: [{ position: 40 }]
+  BeginDate;
+
+  @UI.lineItem: [{ position: 50}]
+  @UI.identification: [{ position: 50 }]
+  EndDate;
+
+  @UI.lineItem: [{ position: 60}]
+  @UI.identification: [{ position: 60 }]
+  TotalPrice;
+  @Consumption.valueHelpDefinition: [{ entity: {
+                                       name: 'I_Currency',
+                                       element: 'Currency'
+                                   } }]
+  @UI.identification: [{ position: 65 }]
+  CurrencyCode;
+
+  @UI.identification: [{ position: 68 }]
+  Description;
+
+  @UI:{   lineItem: [{ position: 70 }],
+          selectionField: [{  position: 70 }]
+      }
+  @Search.defaultSearchElement: true
+  @Consumption.valueHelpDefinition: [{ entity: {
+                                     name: '/DMO/I_Overall_Status_VH',
+                                     element: 'OverallStatus'
+                                 } }]
+  @UI.identification: [{ position: 70 }]
+  OverallStatus;
+
+  @UI.identification: [{ position: 75 }]
+  OverallStatusText;
+
+  @UI.identification: [{ position: 80 }]
+  CreatedBy;
+
+  @UI.identification: [{ position: 90 }]
+  CreatedAt;
+
+  @UI.identification: [{ position: 100 }]
+  LastChangedBy;
+
+  @UI.identification: [{ position: 110 }]
+  LastChangedAt;
+
+}

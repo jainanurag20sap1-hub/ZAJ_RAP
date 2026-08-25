@@ -10,7 +10,6 @@ define root view entity ZAJ_RAP_I_TRAVEL
   association [0..1] to I_Currency               as _Currency      on $projection.CurrencyCode = _Currency.Currency
   association [0..1] to /DMO/I_Overall_Status_VH as _OverallStatus on $projection.OverallStatus = _OverallStatus.OverallStatus
 
-
 {
   key travel_id       as TravelId,
       agency_id       as AgencyId,
