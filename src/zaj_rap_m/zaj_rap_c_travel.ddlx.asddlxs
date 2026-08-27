@@ -1,18 +1,21 @@
 @Metadata.layer: #CORE
 @Search.searchable: true
-@UI.headerInfo: {
+@UI.headerInfo:{
     typeName: 'Travel',
     typeNamePlural: 'Travels',
     title: {
         type: #STANDARD,
         label: 'TravelLabel',
         value: 'TravelId'
+        }
     }
-}
 
 annotate view ZAJ_RAP_C_TRAVEL with
 {
-  @UI.facet: [{ id: 'Travel', position: 10, purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE }]
+  @UI.facet: [
+    { id: 'Travel', position: 10, purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE },
+    { id: 'Booking', position: 20, purpose: #STANDARD, type: #LINEITEM_REFERENCE, targetElement: '_Booking' }
+  ]
 
   @UI:{   lineItem: [{ position: 10 }],
           identification: [{ position: 10 }]
@@ -36,7 +39,7 @@ annotate view ZAJ_RAP_C_TRAVEL with
   @Search.defaultSearchElement: true
   @Consumption.valueHelpDefinition: [{ entity: {
                                          name: '/DMO/I_Customer',
-                                         element: '/DMO/I_Customer'
+                                         element: 'CustomerID'
                                      } }]
   CustomerId;
 

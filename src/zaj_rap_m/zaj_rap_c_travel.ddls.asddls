@@ -12,7 +12,7 @@ define root view entity ZAJ_RAP_C_TRAVEL
       AgencyId,
       _Agency.name              as AgencyName,
       @ObjectModel.text.element: [ 'CustomerName' ]
-      CustomerId,
+      CustomerId, 
       _Customer.first_name      as CustomerName,
       BeginDate,
       EndDate,

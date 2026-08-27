@@ -1,6 +1,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'RAP projection view for Booking'
 @Metadata.ignorePropagatedAnnotations: true
+@Metadata.allowExtensions: true
 define view entity Zaj_RAP_C_Booking
   as projection on ZAJ_RAP_I_BOOKING
 {
