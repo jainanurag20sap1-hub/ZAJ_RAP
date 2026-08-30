@@ -1,0 +1,6 @@
+CLASS zcl_bp_aj_rap_i_travel DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zaj_rap_i_travel.
+ENDCLASS.
+
+CLASS zcl_bp_aj_rap_i_travel IMPLEMENTATION.
+
+ENDCLASS.

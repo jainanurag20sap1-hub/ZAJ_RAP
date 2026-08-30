@@ -13,7 +13,7 @@
 annotate view Zaj_RAP_C_BSUPPL_M with
 {
 
-  @UI.facet: [{ id: 'BookingSuppl', position: 10, purpose: #STANDARD, type: #LINEITEM_REFERENCE }]
+  @UI.facet: [{ id: 'BookingSuppl', position: 10, purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE }]
 
   @UI:
   {

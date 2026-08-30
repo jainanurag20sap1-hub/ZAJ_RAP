@@ -1,0 +1,44 @@
+managed;
+strict ( 2 );
+
+define behavior for ZAJ_RAP_I_TRAVEL //alias Travel
+implementation in class zcl_bp_aj_rap_i_travel unique
+persistent table zaj_rap_travel_m
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly ) TravelId;
+  association _Booking { create; }
+}
+
+define behavior for ZAJ_RAP_I_BOOKING //alias <alias_name>
+implementation in class zcl_bp_aj_rap_i_booking unique
+persistent table zaj_rap_bookin_m
+lock dependent by _Travel
+authorization dependent by _Travel
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) TravelId, BookingId;
+  association _Travel;
+  association _BookingSuppl { create; }
+}
+
+define behavior for Zaj_RAP_I_BSUPPL_M //alias <alias_name>
+implementation in class zcl_bp_aj_rap_i_bsuppl unique
+persistent table zaj_rap_bsuppl_m
+lock dependent by _Travel
+authorization dependent by _Travel
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) TravelId, BookingId, BookingSupplementId;
+  association _Travel;
+  association _Booking;
+}
