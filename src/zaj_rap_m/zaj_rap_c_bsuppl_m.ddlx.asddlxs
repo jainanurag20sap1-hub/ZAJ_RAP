@@ -20,6 +20,7 @@ annotate view Zaj_RAP_C_BSUPPL_M with
       lineItem: [{ position: 10, label: 'Travel Id' }],
       identification: [{ position: 10 }]
   }
+  @Search.defaultSearchElement: true
   TravelId;
 
   @UI:
@@ -27,6 +28,7 @@ annotate view Zaj_RAP_C_BSUPPL_M with
       lineItem: [{ position: 20 }],
       identification: [{ position: 20 }]
   }
+  @Search.defaultSearchElement: true
   BookingId;
 
   @UI:

@@ -20,6 +20,7 @@ annotate view ZAJ_RAP_C_TRAVEL with
   @UI:{   lineItem: [{ position: 10 }],
           identification: [{ position: 10 }]
       }
+  @Search.defaultSearchElement: true
   TravelId;
   @UI:{   lineItem: [{ position: 20 }],
           selectionField: [{  position: 20 }],

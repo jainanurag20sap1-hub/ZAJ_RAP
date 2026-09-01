@@ -22,6 +22,7 @@ annotate view Zaj_RAP_C_Booking with
       lineItem: [{ position: 10, label: 'Travel Identification' }],
       identification: [{ position: 10 }]
   }
+  @Search.defaultSearchElement: true
   TravelId;
 
   @UI:
@@ -29,6 +30,7 @@ annotate view Zaj_RAP_C_Booking with
       lineItem: [{ position: 20 }],
       identification: [{ position: 20 }]
   }
+  @Search.defaultSearchElement: true
   BookingId;
 
   @UI:
@@ -43,6 +45,11 @@ annotate view Zaj_RAP_C_Booking with
   lineItem: [{ position: 40 }],
   identification: [{ position: 40 }]
   }
+  @Search.defaultSearchElement: true
+  @Consumption.valueHelpDefinition: [{ entity: {
+                                         name: '/DMO/I_Customer',
+                                         element: 'CustomerID'
+                                     } }]
   CustomerId;
 
   @UI:
@@ -50,6 +57,11 @@ annotate view Zaj_RAP_C_Booking with
     lineItem: [{ position: 50 }],
     identification: [{ position: 50 }]
   }
+  @Search.defaultSearchElement: true
+  @Consumption.valueHelpDefinition: [{ entity: {
+                                         name: '/DMO/I_Carrier',
+                                         element: 'AirlineID'
+                                     } }]
   CarrierId;
 
   @UI:
@@ -85,6 +97,11 @@ annotate view Zaj_RAP_C_Booking with
     lineItem: [{ position: 100 }],
     identification: [{ position: 100 }]
   }
+  @Search.defaultSearchElement: true
+  @Consumption.valueHelpDefinition: [{ entity: {
+                                         name: '/DMO/I_Booking_Status_VH',
+                                         element: 'BookingStatus'
+                                     } }]
   BookingStatus;
 
   @UI:
