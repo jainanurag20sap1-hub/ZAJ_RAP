@@ -6,12 +6,13 @@ implementation in class zcl_bp_aj_rap_i_travel unique
 persistent table zaj_rap_travel_m
 lock master
 authorization master ( instance )
+early numbering
 etag master LastChangedAt
 {
   create ( authorization : global );
   update;
   delete;
-  //field ( readonly ) TravelId;
+  field ( readonly ) TravelId;
   association _Booking { create; }
   mapping for zaj_rap_travel_m
     {
