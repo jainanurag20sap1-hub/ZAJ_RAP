@@ -6,6 +6,8 @@ CLASS zcl_aj_rap_data_generator DEFINITION
   PUBLIC SECTION.
     INTERFACES if_oo_adt_classrun.
 
+protected section.
+private section.
 ENDCLASS.
 
 

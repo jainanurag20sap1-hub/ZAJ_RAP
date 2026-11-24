@@ -17,13 +17,15 @@ ENDCLASS.
 
 
 
-CLASS zaj_testclass IMPLEMENTATION.
+CLASS ZAJ_TESTCLASS IMPLEMENTATION.
+
+
   METHOD if_oo_adt_classrun~main.
     out->write( lw_welcome ).
   ENDMETHOD.
 
+
   METHOD get_data.
     lw_data = cl_abap_context_info=>get_system_date( ).
   ENDMETHOD.
-
 ENDCLASS.

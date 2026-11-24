@@ -33,15 +33,15 @@ CLASS lhc_ZAJ_RAP_I_TRAVEL IMPLEMENTATION.
         "Get next number from number range object
         cl_numberrange_runtime=>number_get(
           EXPORTING
-          nr_range_nr = '01'
-            object = '/DMO/TRV_M'
+            nr_range_nr       = '01'
+            object            = '/DMO/TRV_M'
           IMPORTING
             returned_quantity = DATA(lv_quantity)
-            number = DATA(lv_number)
-            returncode = DATA(lv_return_code)
+            number            = DATA(lv_number)
+            returncode        = DATA(lv_return_code)
           EXCEPTIONS
-            OTHERS = 1
-    ).
+            OTHERS            = 1
+        ).
 
 
         LOOP AT lt_entities INTO DATA(ls_entities).
@@ -64,7 +64,7 @@ CLASS lhc_ZAJ_RAP_I_TRAVEL IMPLEMENTATION.
           <ls_entitiesreported>-%cid = ls_entities-%cid.
           <ls_entitiesreported>-%key =  ls_entities-%key.
           <ls_entitiesreported>-%msg = new_message_with_text( severity = if_abap_behv_message=>severity-error
-                                                              text = lx_rooterror->get_text( ) ).
+                                                              text     = lx_rooterror->get_text( ) ).
 
         ENDLOOP.
 
@@ -72,7 +72,62 @@ CLASS lhc_ZAJ_RAP_I_TRAVEL IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD earlynumbering_cba_Booking.
+
+    TRY.
+
+        "Read the corresponding link entities from database [Source - Travel, Target - Booking]
+        READ ENTITIES OF zaj_rap_i_travel IN LOCAL MODE
+        ENTITY zaj_rap_i_travel BY \_Booking
+        ALL FIELDS WITH CORRESPONDING #( entities )
+        LINK DATA(lt_travel_booking_link).
+
+        LOOP AT entities ASSIGNING FIELD-SYMBOL(<ls_entities>)
+                GROUP BY ( travelid = <ls_entities>-TravelId ).
+
+          DATA(lv_max_db_booking) = CONV /dmo/booking_id( 0 ).
+
+          "Get the maximum booking id from the database for the current travel id
+          lv_max_db_booking = REDUCE /dmo/booking_id(
+									INIT lv_max_db_booking_temp = CONV /dmo/booking_id( 0 )
+									FOR <ls_entities_booking_link> IN lt_travel_booking_link USING KEY entity
+									     WHERE ( source-TravelId = <ls_entities>-TravelId )
+									NEXT lv_max_db_booking_temp = COND /dmo/booking_id(
+																		  WHEN lv_max_db_booking_temp > <ls_entities_booking_link>-target-BookingId
+																		  THEN lv_max_db_booking_temp
+																		  ELSE <ls_entities_booking_link>-target-BookingId
+																		  )
+													   ).
+          "Get the maximum booking id (Draft mode) from the current travel id for the current travel id
+          DATA(lv_max_current_bookings) = REDUCE /dmo/booking_id(
+          									INIT lv_max_current_bookings_temp = lv_max_db_booking
+          									FOR ls_entities_draft_bookings IN entities USING KEY entity
+          									   WHERE ( TravelId = <ls_entities>-TravelId )
+          									   FOR ls_entities_curr_booking IN ls_entities_draft_bookings-%target USING KEY entity
+          									   NEXT lv_max_current_bookings_temp = COND /dmo/booking_id(
+            		  																  WHEN lv_max_current_bookings_temp > ls_entities_curr_booking-BookingId
+            		  																  THEN lv_max_current_bookings_temp
+            		  																  ELSE ls_entities_curr_booking-BookingId
+		  																		  )
+		  															   ).
+
+
+          LOOP AT <ls_entities>-%target ASSIGNING FIELD-SYMBOL(<ls_entities_new_booking>)
+              WHERE BookingId IS INITIAL.
+
+            lv_max_current_bookings += 10.
+            "Assign the booking id to the current booking entity where booking id is initial
+            APPEND CORRESPONDING #( <ls_entities_new_booking> ) TO mapped-zaj_rap_i_booking ASSIGNING FIELD-SYMBOL(<lfs_new_mapped_booking>).
+            <lfs_new_mapped_booking>-BookingId = lv_max_current_bookings.
+          ENDLOOP.
+
+        ENDLOOP.
+
+      CATCH cx_root INTO DATA(lx_rooterror).
+
+    ENDTRY.
+
   ENDMETHOD.
 
 ENDCLASS.
