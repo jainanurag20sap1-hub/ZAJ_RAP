@@ -120,6 +120,7 @@ CLASS lhc_ZAJ_RAP_I_TRAVEL IMPLEMENTATION.
             "Assign the booking id to the current booking entity where booking id is initial
             APPEND CORRESPONDING #( <ls_entities_new_booking> ) TO mapped-zaj_rap_i_booking ASSIGNING FIELD-SYMBOL(<lfs_new_mapped_booking>).
             <lfs_new_mapped_booking>-BookingId = lv_max_current_bookings.
+
           ENDLOOP.
 
         ENDLOOP.
